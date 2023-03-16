@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# redirect stdout and stderr to files
+##
+# Ensure /.composer exists and is writable
+#
+if [ ! -d /.composer ]; then
+    mkdir /.composer
+fi
+
+chmod -R ugo+rw /.composer
+
+##
+# Run a command or start supervisord
+#
+if [ $# -gt 0 ];then
+    # If we passed a command, run it
+    echo "If we passed a command, run it"
+    exec "$@"
+else
+    # Otherwise start supervisord
+    #echo "Otherwise start supervisord"
+    echo "Otherwise start supervisord"
+    supervisord --nodaemon
+fi
+
